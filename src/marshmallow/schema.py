@@ -583,6 +583,9 @@ class Schema(base.SchemaABC, metaclass=SchemaMeta):
         serialized = self.dump(obj, many=many)
         return self.opts.render_module.dumps(serialized, *args, **kwargs)
 
+    def iterencode(self, obj: typing.Any) -> typing.Iterable[str]:
+        yield from self.opts.render_module.iterencode(obj)
+
     def _deserialize(
         self,
         data: typing.Union[
